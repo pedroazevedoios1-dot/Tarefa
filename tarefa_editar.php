@@ -11,6 +11,53 @@
 </head>
 
 <body>
+
+    <?php
+        // 1° PASSO: Criar variáveis para armazenar os dados retornados pelo comando SELECT
+
+        $id = $POST["txtId"]; // O ID informado na página de PESQUISAR
+        $descricao = "";
+        $data_de_entrega = "";
+        $prioridade = "";
+        $responsavel = "";
+       
+        // 2 PASSO: Construir o comando SQL - SELECT
+
+        $sql = "SELECT * FROM tarefa HERE id = ?";
+
+        // 3º PASSO: Preparar o comando SQL para ser preparado na conexão
+
+        $comando = $conexao->prepare($sql);
+
+        // 4º PASSO: Associar os valores dos parametros do comando SQL
+
+        // 5º PAsso: executar o comando SQL
+
+        $comando->bind_param("i",$id);
+        
+        // OBS:Como um comando SELECT traz um retorno de dados, precisamos guardar os resultados em uma variável
+       
+        $comando->execute();
+
+        $resultado = $comando->get_result();
+        if (resultado->num_rows <=0)
+        {
+            echo "<h1> Esta tarefa não foi cadastrada!</h1>";
+        }
+
+        else 
+        {
+            $registro - $resultado->fetch_assoc();
+
+            $descricao = $registro ["descrição"];
+            $data_entrega = $registro ["descrição"];
+            $descricao = $registro ["descrição"];
+            $prioridade= $registro ["descrição"];
+            $descricao = $registro ["descrição"];
+        }
+
+    ?>
+
     <form method="post">
     <div class="container">
         <div class="row">
